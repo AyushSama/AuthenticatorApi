@@ -1,7 +1,11 @@
 using Authenticator.Application.BusinessInterfaces;
 using Authenticator.Application.BusinessServices;
 using Authenticator.Core;
+using Authenticator.TokenHandler;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +21,32 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IUserAuthenticatorService, UserAuthenticatorService>();
 builder.Services.AddScoped<ILoginHistoryAuthenticatorService, LoginHistoryAuthenticatorService>();
+builder.Services.AddScoped<HandleToken>();
+
+
+// Configure JWT authentication
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var key = jwtSettings.GetValue<string>("Key");
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings.GetValue<string>("Issuer"),
+        ValidAudience = jwtSettings.GetValue<string>("Audience"),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+    };
+});
+
 
 builder.Services.AddCors(options =>
 {
@@ -45,6 +75,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowAngularApp");
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

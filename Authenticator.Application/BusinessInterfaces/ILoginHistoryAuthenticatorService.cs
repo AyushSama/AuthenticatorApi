@@ -1,6 +1,6 @@
 ﻿namespace Authenticator.Application.BusinessInterfaces
 {
-    internal class ILoginHistoryAuthenticatorService
+    internal interface ILoginHistoryAuthenticatorService
     {
     }
 }

@@ -12,5 +12,7 @@ namespace Authenticator.Core.DBEntities
         public int userId {  get; set; }
         public string requestIP { get; set; }
         public DateTime timestamp { get; set; }
+
+        public bool status {  get; set; }
     }
 }

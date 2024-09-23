@@ -16,6 +16,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IUserAuthenticatorService, UserAuthenticatorService>();
+builder.Services.AddScoped<ILoginHistoryAuthenticatorService, LoginHistoryAuthenticatorService>();
 
 builder.Services.AddCors(options =>
 {

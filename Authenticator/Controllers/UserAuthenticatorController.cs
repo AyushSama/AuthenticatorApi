@@ -50,9 +50,10 @@ namespace Authenticator.Controllers
 
         [HttpPost("postUser")]
         public ActionResult PostUser([FromBody] UserAuthenticator userAuthenticator)
-        {
+        {   
+            userAuthenticator.createdDate = DateTime.UtcNow;
             _userAuthenticatorService.postUser(userAuthenticator);
-            return Ok("User Added Successfully");
+            return Ok(new { message = "User Added Successfully" });
         }
 
         

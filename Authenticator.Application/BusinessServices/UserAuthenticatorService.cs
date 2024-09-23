@@ -1,9 +1,7 @@
 ﻿using Authenticator.Application.BusinessInterfaces;
+using Authenticator.Application.PasswordHash;
 using Authenticator.Core;
 using Authenticator.Core.DBEntities;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Authenticator.Application.BusinessServices
 {
@@ -16,16 +14,6 @@ namespace Authenticator.Application.BusinessServices
             _inboxContext = inboxContext;
         }
 
-        private string ComputeHash(string password)
-        {
-            using (var sha256 = SHA256.Create())
-            {
-                var bytes = Encoding.UTF8.GetBytes(password);
-                var hash = sha256.ComputeHash(bytes);
-                return Convert.ToBase64String(hash);
-            }
-        }
-
         public UserAuthenticator getUser(string email, string password)
         {
             var user = _inboxContext.UserAuthenticator.SingleOrDefault(u => u.email == email);
@@ -34,7 +22,7 @@ namespace Authenticator.Application.BusinessServices
             {
                 return null;
             }
-            var passwordHash = ComputeHash(password);
+            var passwordHash = HashPassword.ComputeHash(password);
             if (user.password == passwordHash)
             {
                 return user;
@@ -44,7 +32,9 @@ namespace Authenticator.Application.BusinessServices
 
         public void postUser(UserAuthenticator userAuthenticator)
         {
+            userAuthenticator.password = HashPassword.ComputeHash(userAuthenticator.password);
             _inboxContext.UserAuthenticator.Add(userAuthenticator);
+            _inboxContext.SaveChanges();
         }
     }
 }

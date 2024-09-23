@@ -1,7 +1,9 @@
 ﻿using Authenticator.Application.BusinessInterfaces;
 using Authenticator.Core.DBEntities;
 using Authenticator.TokenHandler;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Authenticator.Controllers
 {
@@ -42,7 +44,7 @@ namespace Authenticator.Controllers
                 _loginHistoryAuthenticatorService.Log(loginHistoryAuthenticator);
 
             }
-            var token = _handleToken.GenerateJwtToken(email);
+            var token = _handleToken.GenerateJwtToken(email,res.userId);
             return Ok(new { res, token });
         }
 
@@ -51,6 +53,36 @@ namespace Authenticator.Controllers
         {
             _userAuthenticatorService.postUser(userAuthenticator);
             return Ok("User Added Successfully");
+        }
+
+        
+        [HttpGet("getHistory")]
+        public ActionResult<List<LoginHistoryAuthenticator>> GetHistory()
+        {
+            // Get the token from the Authorization header
+            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            // Validate the token and extract the userId
+            var jwtHandler = new JwtSecurityTokenHandler();
+            var jwtToken = jwtHandler.ReadJwtToken(token);
+
+            // Extract userId claim
+            var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "userId");
+            if (userIdClaim == null)
+            {
+                return BadRequest("User ID not found in token.");
+            }
+
+            int userId;
+            if (!int.TryParse(userIdClaim.Value, out userId))
+            {
+                return BadRequest("Invalid User ID in token.");
+            }
+
+            // Get login history using userId
+            var history = _loginHistoryAuthenticatorService.getHistory(userId);
+
+            return Ok(history);
         }
 
     }

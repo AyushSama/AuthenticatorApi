@@ -42,7 +42,7 @@ namespace Authenticator.TokenHandler
             }
         }
 
-        public string GenerateJwtToken(string email)
+        public string GenerateJwtToken(string email, int userId)
         {
             var jwtSettings = _configuration.GetSection("JwtSettings");
             var key = jwtSettings.GetValue<string>("Key");
@@ -53,8 +53,9 @@ namespace Authenticator.TokenHandler
             var claims = new[]
             {
             new Claim(JwtRegisteredClaimNames.Sub, email),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        };
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim("userId", userId.ToString())
+            };
 
             var keyBytes = Encoding.UTF8.GetBytes(key);
             var securityKey = new SymmetricSecurityKey(keyBytes);

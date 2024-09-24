@@ -8,6 +8,6 @@ namespace Authenticator.Core.DBEntities
         public int userId {  get; set; }
         public string email { get; set; }
         public string password { get; set; }
-        public DateTimeOffset createdDate {  get; set; }
+        public DateTime createdDate {  get; set; }
     }
 }

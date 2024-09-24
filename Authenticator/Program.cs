@@ -1,5 +1,6 @@
 using Authenticator.Application.BusinessInterfaces;
 using Authenticator.Application.BusinessServices;
+using Authenticator.Application.LoginAttemptService;
 using Authenticator.Core;
 using Authenticator.TokenHandler;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -48,6 +49,8 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IUserAuthenticatorService, UserAuthenticatorService>();
 builder.Services.AddScoped<ILoginHistoryAuthenticatorService, LoginHistoryAuthenticatorService>();
+builder.Services.AddSingleton<FailedLoginAttemptsService>();
+
 builder.Services.AddScoped<HandleToken>();
 
 

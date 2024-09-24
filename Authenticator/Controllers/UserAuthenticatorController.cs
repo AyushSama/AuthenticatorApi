@@ -1,9 +1,11 @@
 ﻿using Authenticator.Application.BusinessInterfaces;
+using Authenticator.Application.LoginAttemptService;
 using Authenticator.Core.DBEntities;
 using Authenticator.TokenHandler;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
+using System.Text.Json;
 
 namespace Authenticator.Controllers
 {
@@ -24,16 +26,41 @@ namespace Authenticator.Controllers
         }
 
         [HttpGet("getUser")]
-        public ActionResult<UserAuthenticator> GetUser(string email, string password)
+        public async Task<IActionResult> GetUser(string email, string password,string? captcha)
         {
             string requestIP = HttpContext.Connection.RemoteIpAddress?.ToString();
+             var failedAttemptsService = HttpContext.RequestServices.GetService<FailedLoginAttemptsService>();
+
+            if (!string.IsNullOrEmpty(captcha))
+
+            {
+                var isCaptchaValid = await VerifyCaptcha(captcha);  // You'll need to implement this
+                if (!isCaptchaValid)
+                {
+                    failedAttemptsService.ResetAttempts(email);
+                    return BadRequest(new { message = "Invalid CAPTCHA", showCaptcha = true });
+                }
+            }
+
+            // Check if the user is blocked
+            if (failedAttemptsService.IsBlocked(email))
+            {
+                return StatusCode(429, "Too many failed attempts. Please try again later.");
+            }
+
             var res = _userAuthenticatorService.getUser(email, password);
+
             if (res == null)
             {
+                // Record failed attempt
+                failedAttemptsService.RecordFailedAttempt(email);
                 return Unauthorized();
             }
             else
             {
+                // Reset attempts on successful login
+                failedAttemptsService.ResetAttempts(email);
+
                 LoginHistoryAuthenticator loginHistoryAuthenticator = new LoginHistoryAuthenticator()
                 {
                     userId = res.userId,
@@ -42,11 +69,12 @@ namespace Authenticator.Controllers
                     timestamp = DateTime.UtcNow,
                 };
                 _loginHistoryAuthenticatorService.Log(loginHistoryAuthenticator);
-
             }
-            var token = _handleToken.GenerateJwtToken(email,res.userId);
+
+            var token = _handleToken.GenerateJwtToken(email, res.userId);
             return Ok(new { res, token });
         }
+
 
         [HttpPost("postUser")]
         public ActionResult PostUser([FromBody] UserAuthenticator userAuthenticator)
@@ -84,6 +112,24 @@ namespace Authenticator.Controllers
             var history = _loginHistoryAuthenticatorService.getHistory(userId);
 
             return Ok(history);
+        }
+
+        [NonAction]
+        private async Task<bool> VerifyCaptcha(string captchaResponse)
+        {
+            var secretKey = "6Le2V00qAAAAANDaOsvgbQYhTnn4uGQfZlHtbvVv"; // Replace with your actual secret key
+            var client = new HttpClient();
+
+            var response = await client.PostAsync($"https://www.google.com/recaptcha/api/siteverify?secret={secretKey}&response={captchaResponse}", null);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonResponse);
+                return result.success == true; // Check if the CAPTCHA verification was successful
+            }
+
+            return false; // If the request to Google fails, consider it as invalid
         }
 
     }

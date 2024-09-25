@@ -5,6 +5,7 @@ using Authenticator.TokenHandler;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Text.Json;
 
 namespace Authenticator.Controllers
@@ -72,7 +73,21 @@ namespace Authenticator.Controllers
             }
 
             var token = _handleToken.GenerateJwtToken(email, res.userId);
-            return Ok(new { res, token });
+
+            string cookieName = "token";
+            string cookieValue = token;
+            var cookieOptions = new CookieOptions
+            {
+                // Configure cookie properties as needed (e.g., expiration, path, domain)
+                Expires = DateTime.Now.AddDays(7), // Set expiration to 7 days
+                Path = "/", // Set path for the cookie
+                Secure = false, // Set to true if using HTTPS
+                HttpOnly = false // Set to true to make the cookie inaccessible from JavaScript
+            };
+
+            Response.Cookies.Append(cookieName, cookieValue, cookieOptions);
+
+            return Ok(new { res, token});
         }
 
 

@@ -103,30 +103,37 @@ namespace Authenticator.Controllers
         [HttpGet("getHistory")]
         public ActionResult<List<LoginHistoryAuthenticator>> GetHistory()
         {
+            try {
+                var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+                // Validate the token and extract the userId
+                var jwtHandler = new JwtSecurityTokenHandler();
+                var jwtToken = jwtHandler.ReadJwtToken(token);
+
+                // Extract userId claim
+                var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "userId");
+                if (userIdClaim == null)
+                {
+                    return BadRequest("User ID not found in token.");
+                }
+
+                int userId;
+                if (!int.TryParse(userIdClaim.Value, out userId))
+                {
+                    return BadRequest("Invalid User ID in token.");
+                }
+
+                // Get login history using userId
+                var history = _loginHistoryAuthenticatorService.getHistory(userId);
+
+                return Ok(history);
+            }
+            catch
+            {
+                return Unauthorized();  
+            }
             // Get the token from the Authorization header
-            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-
-            // Validate the token and extract the userId
-            var jwtHandler = new JwtSecurityTokenHandler();
-            var jwtToken = jwtHandler.ReadJwtToken(token);
-
-            // Extract userId claim
-            var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "userId");
-            if (userIdClaim == null)
-            {
-                return BadRequest("User ID not found in token.");
-            }
-
-            int userId;
-            if (!int.TryParse(userIdClaim.Value, out userId))
-            {
-                return BadRequest("Invalid User ID in token.");
-            }
-
-            // Get login history using userId
-            var history = _loginHistoryAuthenticatorService.getHistory(userId);
-
-            return Ok(history);
+            
         }
 
         [NonAction]

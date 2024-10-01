@@ -10,5 +10,6 @@ namespace Authenticator.Core
         public DbSet<LoginHistoryAuthenticator> LoginHistoryAuthenticator { get; set; }
 
         public DbSet<ButtonBasedOnUserRole> ButtonBasedOnUserRole { get; set; }
+        public DbSet<ButtonTable> ButtonTable { get; set; }
     }
 }

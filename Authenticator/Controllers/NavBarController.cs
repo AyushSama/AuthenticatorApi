@@ -9,9 +9,11 @@ namespace Authenticator.Controllers
     {
 
         private readonly IButtonBasedOnUserRoleService _buttonBasedOnUserRoleService;
-        public NavBarController(IButtonBasedOnUserRoleService buttonBasedOnUserRoleService)
+        private readonly IButtonTableService _buttonTableService;
+        public NavBarController(IButtonBasedOnUserRoleService buttonBasedOnUserRoleService, IButtonTableService buttonTableService)
         {
             _buttonBasedOnUserRoleService = buttonBasedOnUserRoleService;
+            _buttonTableService = buttonTableService;
         }
 
         [HttpGet("newRequests")]
@@ -35,13 +37,15 @@ namespace Authenticator.Controllers
         [HttpGet("reports")]
         public ActionResult getReports()
         {
-            return Ok(new { message = "Reports is Working" });
+            var list = _buttonTableService.getButtonNames("Reports");
+            return Ok(new { button = list, message = "Reports is Working" });
         }
 
         [HttpGet("manageAccountDetails")]
         public ActionResult getManageAccountDetails()
         {
-            return Ok(new { message = "Manage Account Details is Working" });
+            var list = _buttonTableService.getButtonNames("Manage Account Details");
+            return Ok(new { button = list, message = "Manage Account Details is Working" });
         }
 
         [HttpGet("loginPageText")]

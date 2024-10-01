@@ -47,6 +47,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserAuthenticatorService, UserAuthenticatorService>();
 builder.Services.AddScoped<ILoginHistoryAuthenticatorService, LoginHistoryAuthenticatorService>();
 builder.Services.AddScoped<IButtonBasedOnUserRoleService, ButtonBasedOnUserRoleService>();
+builder.Services.AddScoped<IButtonTableService, ButtonTableService>();
 builder.Services.AddSingleton<FailedLoginAttemptsService>();
 
 builder.Services.AddScoped<HandleToken>();

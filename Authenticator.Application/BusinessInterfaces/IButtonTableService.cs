@@ -2,6 +2,6 @@
 {
     public interface IButtonTableService
     {
-        public List<string> getButtonNames(string menuType);
+        public List<KeyValuePair<string, bool>> getButtonNames(string menuType);
     }
 }

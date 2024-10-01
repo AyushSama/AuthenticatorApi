@@ -1,9 +1,7 @@
-﻿using Authenticator.Data.Models;
-
-namespace Authenticator.Application.BusinessInterfaces
+﻿namespace Authenticator.Application.BusinessInterfaces
 {
     public interface IButtonBasedOnUserRoleService
     {
-        public ButtonModel getButtons(string userRole);
+        public List<string> getButtons(string userRole);
     }
 }

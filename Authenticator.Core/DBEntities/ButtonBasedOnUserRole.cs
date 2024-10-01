@@ -1,12 +1,13 @@
-﻿namespace Authenticator.Core.DBEntities
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Authenticator.Core.DBEntities
 {
+    [Keyless]
     public class ButtonBasedOnUserRole
     {
         public string userRole { get; set; }
 
         public string navButton { get; set; }
-
-        public string navRoute { get; set; }
 
     }
 }

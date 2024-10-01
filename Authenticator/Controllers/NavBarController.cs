@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Authenticator.Application.BusinessInterfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Authenticator.Controllers
 {
@@ -6,6 +7,13 @@ namespace Authenticator.Controllers
     [ApiController] // Add this to specify that it's an API controller
     public class NavBarController : Controller
     {
+
+        private readonly IButtonBasedOnUserRoleService _buttonBasedOnUserRoleService;
+        public NavBarController(IButtonBasedOnUserRoleService buttonBasedOnUserRoleService)
+        {
+            _buttonBasedOnUserRoleService = buttonBasedOnUserRoleService;
+        }
+
         [HttpGet("newRequest")]
         public ActionResult getNewRequests()
         {
@@ -41,5 +49,13 @@ namespace Authenticator.Controllers
         {
             return Ok(new { message = "Login Page Text is Working" });
         }
+
+        [HttpGet("getNavButtons")]
+        public ActionResult getNavButtons()
+        {
+            var res = _buttonBasedOnUserRoleService.getButtons("admin");
+            return Ok(res);
+        }
+
     }
 }

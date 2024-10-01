@@ -1,6 +1,5 @@
 ﻿using Authenticator.Application.BusinessInterfaces;
 using Authenticator.Core;
-using Authenticator.Data.Models;
 
 namespace Authenticator.Application.BusinessServices
 {
@@ -13,16 +12,15 @@ namespace Authenticator.Application.BusinessServices
             _inboxContext = inboxContext;
         }
 
-        public ButtonModel getButtons(string userRole)
+        public List<string> getButtons(string userRole)
         {
             var list = _inboxContext.ButtonBasedOnUserRole.ToList();
-            ButtonModel buttonModel = new ButtonModel();
+            List<string> buttonModelList = new List<string>();
             foreach (var item in list)
             {
-                buttonModel.navButton = item.navButton;
-                buttonModel.navRoute = item.navRoute;
+                buttonModelList.Add(item.navButton);
             }
-            return buttonModel;
+            return buttonModelList;
         }
     }
 }

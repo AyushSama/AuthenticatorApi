@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Authenticator.Core\Authenticator.Core.csproj" />
-    <ProjectReference Include="..\Authenticator.Data\Authenticator.Data.csproj" />
-  </ItemGroup>
-
 </Project>

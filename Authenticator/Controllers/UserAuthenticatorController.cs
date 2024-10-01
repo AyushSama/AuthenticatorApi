@@ -2,11 +2,8 @@
 using Authenticator.Application.LoginAttemptService;
 using Authenticator.Core.DBEntities;
 using Authenticator.TokenHandler;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Text.Json;
 
 namespace Authenticator.Controllers
 {
@@ -27,10 +24,10 @@ namespace Authenticator.Controllers
         }
 
         [HttpGet("getUser")]
-        public async Task<IActionResult> GetUser(string email, string password,string? captcha)
+        public async Task<IActionResult> GetUser(string email, string password, string? captcha)
         {
             string requestIP = HttpContext.Connection.RemoteIpAddress?.ToString();
-             var failedAttemptsService = HttpContext.RequestServices.GetService<FailedLoginAttemptsService>();
+            var failedAttemptsService = HttpContext.RequestServices.GetService<FailedLoginAttemptsService>();
 
             if (!string.IsNullOrEmpty(captcha))
 
@@ -87,23 +84,24 @@ namespace Authenticator.Controllers
 
             Response.Cookies.Append(cookieName, cookieValue, cookieOptions);
 
-            return Ok(new { res, token});
+            return Ok(new { res, token });
         }
 
 
         [HttpPost("postUser")]
         public ActionResult PostUser([FromBody] UserAuthenticator userAuthenticator)
-        {   
+        {
             userAuthenticator.createdDate = DateTime.UtcNow;
             _userAuthenticatorService.postUser(userAuthenticator);
             return Ok(new { message = "User Added Successfully" });
         }
 
-        
+
         [HttpGet("getHistory")]
         public ActionResult<List<LoginHistoryAuthenticator>> GetHistory()
         {
-            try {
+            try
+            {
                 var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
                 // Validate the token and extract the userId
@@ -130,10 +128,10 @@ namespace Authenticator.Controllers
             }
             catch
             {
-                return Unauthorized();  
+                return Unauthorized();
             }
             // Get the token from the Authorization header
-            
+
         }
 
         [NonAction]

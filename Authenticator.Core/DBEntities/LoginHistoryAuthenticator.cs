@@ -9,10 +9,10 @@ namespace Authenticator.Core.DBEntities
         public int historyId { get; set; }
 
         [ForeignKey("UserAuthenticator")]
-        public int userId {  get; set; }
+        public int userId { get; set; }
         public string requestIP { get; set; }
         public DateTime timestamp { get; set; }
 
-        public bool status {  get; set; }
+        public bool status { get; set; }
     }
 }

@@ -3,11 +3,8 @@ using Authenticator.Application.BusinessServices;
 using Authenticator.Application.LoginAttemptService;
 using Authenticator.Core;
 using Authenticator.TokenHandler;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -7,9 +7,9 @@ namespace Authenticator.Controllers
     public class NavBarController : Controller
     {
         [HttpGet("newRequest")]
-        public ActionResult getNewRequests() 
+        public ActionResult getNewRequests()
         {
-            return Ok(new {message = "New Request is Working"});
+            return Ok(new { message = "New Request is Working" });
         }
 
         [HttpGet("premiumServices")]

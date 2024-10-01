@@ -14,7 +14,7 @@ namespace Authenticator.Controllers
             _buttonBasedOnUserRoleService = buttonBasedOnUserRoleService;
         }
 
-        [HttpGet("newRequest")]
+        [HttpGet("newRequests")]
         public ActionResult getNewRequests()
         {
             return Ok(new { message = "New Request is Working" });

@@ -10,13 +10,13 @@ namespace Authenticator.Application.BusinessServices
         {
             _inboxContext = inboxContext;
         }
-        public List<KeyValuePair<string, bool>> getButtonNames(string menuType)
+        public List<KeyValuePair<string, int>> getButtonNames(string menuType)
         {
             var list = _inboxContext.ButtonTable.Where(u => u.menuType == menuType).ToList();
-            List<KeyValuePair<string, bool>> ButtonNameList = new List<KeyValuePair<string, bool>>();
+            List<KeyValuePair<string, int>> ButtonNameList = new List<KeyValuePair<string, int>>();
             foreach (var button in list)
             {
-                ButtonNameList.Add(new KeyValuePair<string, bool>(button.ButtonName, button.isSetting));
+                ButtonNameList.Add(new KeyValuePair<string, int>(button.ButtonName, button.isSetting));
             }
             return ButtonNameList;
         }

@@ -11,7 +11,13 @@ namespace Authenticator.Application.PasswordHash
             {
                 var bytes = Encoding.UTF8.GetBytes(password);
                 var hash = sha256.ComputeHash(bytes);
-                return Convert.ToBase64String(hash);
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < hash.Length; i++)
+                {
+                    stringBuilder.Append(hash[i].ToString("x2"));
+                }
+
+                return stringBuilder.ToString();
             }
         }
     }

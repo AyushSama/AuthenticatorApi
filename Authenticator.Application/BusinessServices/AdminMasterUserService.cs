@@ -24,7 +24,7 @@ namespace Authenticator.Application.BusinessServices
                 Criteria = a => a.UserName == username && a.Password == password,
             };
             var res = _adminMasterUserRepo.GetUniqueRecordBySpec(spec,message);
-            if (res!=null && res.isDeleted == false && res.IsActivator == true)
+            if (res!=null && res.IsDeleted == false && res.IsActivator == true)
                 return res;
             return null;
         }

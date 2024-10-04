@@ -2,6 +2,8 @@ using Authenticator.Application.BusinessInterfaces;
 using Authenticator.Application.BusinessServices;
 using Authenticator.Application.LoginAttemptService;
 using Authenticator.Core;
+using Authenticator.Data.Repositories;
+using Authenticator.Data.RepositryInterfaces;
 using Authenticator.TokenHandler;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -44,6 +46,8 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddScoped<IAdminMasterUserRepo, AdminMasterUserRepo>();
+builder.Services.AddScoped<IAdminMasterUserService, AdminMasterUserService>();
 builder.Services.AddScoped<IUserAuthenticatorService, UserAuthenticatorService>();
 builder.Services.AddScoped<ILoginHistoryAuthenticatorService, LoginHistoryAuthenticatorService>();
 builder.Services.AddScoped<IButtonBasedOnUserRoleService, ButtonBasedOnUserRoleService>();
@@ -68,7 +72,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddDbContextPool<InboxContext>(options =>
-    options.UseSqlServer("Server=172.16.1.90;uid=TTA2024;pwd=Rizvi@2024;database=RizviTTA;TrustServerCertificate=True;", sqloptions =>
+    options.UseSqlServer("server=172.16.1.52;uid=ttarizwi;pwd=2024@RizwiDev;database=ttadb;Min Pool Size=5;Max Pool Size=500;TrustServerCertificate=True;MultipleActiveResultSets=True;", sqloptions =>
     {
         sqloptions.CommandTimeout(5);
     }));

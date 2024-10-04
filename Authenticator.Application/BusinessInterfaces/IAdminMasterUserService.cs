@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Authenticator.Core.DBEntities;
+using ConfigReader.Entities;
 
 namespace Authenticator.Application.BusinessInterfaces
 {
-    internal class IAdminMasterUserService
+    public interface IAdminMasterUserService
     {
+        public AdminMasterUser authenticateUser(string username, string password, Message message);
     }
 }

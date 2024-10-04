@@ -11,5 +11,7 @@ namespace Authenticator.Core
 
         public DbSet<ButtonBasedOnUserRole> ButtonBasedOnUserRole { get; set; }
         public DbSet<ButtonTable> ButtonTable { get; set; }
+
+        public DbSet<AdminMasterUser> AdminMasterUser { get; set; }
     }
 }

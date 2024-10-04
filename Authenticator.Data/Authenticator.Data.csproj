@@ -10,4 +10,13 @@
     <Folder Include="Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Authenticator.Core\Authenticator.Core.csproj" />
+    <ProjectReference Include="..\DataHelper\DataHelper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="8.0.8" />
+  </ItemGroup>
+
 </Project>

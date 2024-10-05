@@ -1,6 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
-using DataHelper.Entities.EnumFields;
+﻿using DataHelper.Entities.EnumFields;
 using DataHelper.HelperClasses;
+using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Reflection;
 using System.Text;
@@ -145,7 +145,7 @@ namespace DataHelper.SPData.Common.Repositories
                         ParameterName = one_kvp.Key,
                         Value = one_kvp.Value ?? DBNull.Value
                     };
-                    if (i == _structuredParamIndex && paramtype==SPParamType.Structured)
+                    if (i == _structuredParamIndex && paramtype == SPParamType.Structured)
                     {
                         param.SqlDbType = SqlDbType.Structured;
                         param.Direction = ParameterDirection.Input;
@@ -265,8 +265,8 @@ namespace DataHelper.SPData.Common.Repositories
                                     propertyInfo.SetValue(tempObj, ConvertToPropType(propertyInfo, dr[col.SPColumnIndex]), null);
                             }
                             catch
-                            { 
-                                message="Fail"; 
+                            {
+                                message = "Fail";
                             }
                         }
                         Rows.Add(tempObj);

@@ -16,10 +16,10 @@ namespace Authenticator.Controllers
         }
 
         [HttpGet("login")]
-        public AdminMasterUser checkUser(string username,string password)
-        {   
+        public AdminMasterUser checkUser(string username, string password)
+        {
             Message message = new Message();
-            AdminMasterUser check = _adminMasterUserService.authenticateUser(username, password,message);
+            AdminMasterUser check = _adminMasterUserService.authenticateUser(username, password, message);
             return check;
         }
     }

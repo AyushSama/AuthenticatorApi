@@ -9,7 +9,7 @@ namespace ConfigReader.Entities
         public int MainCorpNo { get; set; }
         public int LoginCorpNo { get; set; }
         public int LogTypeEnumId { get; set; }
-        public int? ExceptionsLevelEnumId { get;set; }
+        public int? ExceptionsLevelEnumId { get; set; }
         public string CorpName { get; set; }
     }
 

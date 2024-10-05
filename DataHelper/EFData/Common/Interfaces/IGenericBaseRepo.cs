@@ -1,8 +1,8 @@
-﻿using EFCore.BulkExtensions;
-using Microsoft.EntityFrameworkCore;
-using DataHelper.Entities;
+﻿using DataHelper.Entities;
 using DataHelper.Entities.EnumFields;
 using DataHelper.HelperClasses;
+using EFCore.BulkExtensions;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Dynamic.Core;
 using System.Reflection;

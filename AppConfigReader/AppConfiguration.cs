@@ -22,7 +22,7 @@ namespace ConfigReader
             Message message = new Message();
             try
             {
-               
+
                 message.Messages.AddLog("Entered in AppConfig");
                 message.ApiAddress = message.ApiAddress = "ApplyConfiguration";
                 message.ScreenId = (int)ScreenMasterEnum.ConfigReader;
@@ -97,7 +97,7 @@ namespace ConfigReader
                     _appconfig.LoggerMicroServiceEndPoint = configVal.GetValue<string>("LoggerMicroServiceEndPoint") ?? string.Empty;
                     _appconfig.ProductName = configVal.GetValue<string>("ProductName") ?? string.Empty;
                 }
-                LogInfo(_appconfig,message);
+                LogInfo(_appconfig, message);
             }
             catch (Exception ex)
             {
@@ -116,7 +116,7 @@ namespace ConfigReader
 
         private static T BindConfig<T>(IConfiguration config, string sectionName, Message message) where T : new()
         {
-            
+
             var settings = new T();
             config.GetSection(sectionName).Bind(settings);
             message.Messages.AddLog("Entered in AppConfig DeserializeConfig,", settings.ToString());
@@ -156,7 +156,7 @@ namespace ConfigReader
                     LoggerSetting = appconfig.LoggerSetting,
                     MainCorpNo = -1,
                     LoginCorpNo = -1,
-                    CorpName ="App Config Nuget",
+                    CorpName = "App Config Nuget",
                     ExceptionsLevelEnumId = null
                 };
                 var nameValueCollection = new NameValueCollection();

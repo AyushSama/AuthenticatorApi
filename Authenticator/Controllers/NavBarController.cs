@@ -8,14 +8,6 @@ namespace Authenticator.Controllers
     public class NavBarController : Controller
     {
 
-        private readonly IButtonBasedOnUserRoleService _buttonBasedOnUserRoleService;
-        private readonly IButtonTableService _buttonTableService;
-        public NavBarController(IButtonBasedOnUserRoleService buttonBasedOnUserRoleService, IButtonTableService buttonTableService)
-        {
-            _buttonBasedOnUserRoleService = buttonBasedOnUserRoleService;
-            _buttonTableService = buttonTableService;
-        }
-
         [HttpGet("newRequests")]
         public ActionResult getNewRequests()
         {
@@ -37,15 +29,13 @@ namespace Authenticator.Controllers
         [HttpGet("reports")]
         public ActionResult getReports()
         {
-            var list = _buttonTableService.getButtonNames("Reports");
-            return Ok(new { button = list, message = "Reports is Working" });
+            return Ok(new { message = "Reports is Working" });
         }
 
         [HttpGet("manageAccountDetails")]
         public ActionResult getManageAccountDetails()
         {
-            var list = _buttonTableService.getButtonNames("Manage Account Details");
-            return Ok(new { button = list, message = "Manage Account Details is Working" });
+            return Ok(new { message = "Manage Account Details is Working" });
         }
 
         [HttpGet("loginPageText")]
@@ -57,8 +47,7 @@ namespace Authenticator.Controllers
         [HttpGet("getNavButtons")]
         public ActionResult getNavButtons()
         {
-            var res = _buttonBasedOnUserRoleService.getButtons("admin");
-            return Ok(res);
+            return Ok("Get Naviation Buttons Called");
         }
 
     }

@@ -72,7 +72,7 @@ namespace DataHelper.MockRepos
             return cstVal;
         }
         #endregion
-      
+
     }
 
     public class ResultEntityColumnMapping

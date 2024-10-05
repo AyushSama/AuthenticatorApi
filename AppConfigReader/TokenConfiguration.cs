@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ConfigReader.Entities;
+﻿using ConfigReader.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 
@@ -39,33 +37,34 @@ namespace ConfigReader
 
         private static int GetClaimValueAsInt(JwtSecurityToken jwtToken, string claimType)
         {
-            try 
+            try
             {
                 var value = jwtToken.Claims.FirstOrDefault(c => c.Type == claimType)?.Value;
                 return int.TryParse(value, out var result) ? result : 0;
             }
             catch { return 0; }
 
-            
+
         }
 
         private static bool GetClaimValueAsBool(JwtSecurityToken jwtToken, string claimType)
         {
             try
             {
-            var value = jwtToken.Claims.FirstOrDefault(c => c.Type == claimType)?.Value;
-            return bool.TryParse(value, out var result) ? result : false;
+                var value = jwtToken.Claims.FirstOrDefault(c => c.Type == claimType)?.Value;
+                return bool.TryParse(value, out var result) ? result : false;
             }
-            catch 
+            catch
             {
-                return false; 
+                return false;
             }
         }
 
         private static string GetClaimValueAsString(JwtSecurityToken jwtToken, string claimType)
         {
-            try { 
-            return jwtToken.Claims.FirstOrDefault(c => c.Type == claimType)?.Value ?? string.Empty;
+            try
+            {
+                return jwtToken.Claims.FirstOrDefault(c => c.Type == claimType)?.Value ?? string.Empty;
             }
             catch { return string.Empty; }
         }

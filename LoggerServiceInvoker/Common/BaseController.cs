@@ -3,7 +3,6 @@ using ConfigReader.Entities;
 using Letstalk.Areas.LoggerMicroServices.Constants;
 using LoggerServiceInvoker.Interface;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Specialized;
 using System.Diagnostics;
@@ -54,7 +53,7 @@ namespace LoggerServiceInvoker.Common
 
 
         }
-        public void LogInfo(NameValueCollection appSettings, LoggerEntity newEntity, string SecretKey) 
+        public void LogInfo(NameValueCollection appSettings, LoggerEntity newEntity, string SecretKey)
         {
             SaveLog(_appSettings["LoggerMicroServiceEndPoint"], newEntity, SecretKey);
         }
@@ -62,7 +61,7 @@ namespace LoggerServiceInvoker.Common
         {
             SaveLog(loggerUrl, newEntity, SecretKey);
         }
-        public void LogException( Exception ex, Message message, int loginCorpNo, int mainCorpNo, string corpName, string secretKey)
+        public void LogException(Exception ex, Message message, int loginCorpNo, int mainCorpNo, string corpName, string secretKey)
         {
             StackTrace st = new StackTrace(ex, true);
             StackFrame[] frames = st.GetFrames();
@@ -89,7 +88,7 @@ namespace LoggerServiceInvoker.Common
                 SaveLog(_appSettings["LoggerMicroServiceEndPoint"], newEntity, secretKey);
             }
         }
-        public void LogException( Exception ex, NameValueCollection appSettings, LoggerEntity newEntity, string SecretKey) 
+        public void LogException(Exception ex, NameValueCollection appSettings, LoggerEntity newEntity, string SecretKey)
         {
             StackTrace st = new StackTrace(ex, true);
             StackFrame[] frames = st.GetFrames();
@@ -97,7 +96,7 @@ namespace LoggerServiceInvoker.Common
             newEntity.Message.Messages.AddLog(ex, lastFrame);
             SaveLog(_appSettings["LoggerMicroServiceEndPoint"], newEntity, SecretKey);
         }
-        public void LogException( Exception ex,  string loggerUrl, LoggerEntity newEntity, string SecretKey) 
+        public void LogException(Exception ex, string loggerUrl, LoggerEntity newEntity, string SecretKey)
         {
             StackTrace st = new StackTrace(ex, true);
             StackFrame[] frames = st.GetFrames();
@@ -105,7 +104,7 @@ namespace LoggerServiceInvoker.Common
             newEntity.Message.Messages.AddLog(ex, lastFrame);
             SaveLog(loggerUrl, newEntity, SecretKey);
         }
-        protected void SaveLog(string apiurl, LoggerEntity newEntity,string SecretKey)
+        protected void SaveLog(string apiurl, LoggerEntity newEntity, string SecretKey)
         {
             HttpClientHandler handler = new HttpClientHandler();
             handler.ServerCertificateCustomValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;

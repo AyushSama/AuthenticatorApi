@@ -37,7 +37,7 @@ namespace DataHelper.MockRepos
         /// <returns></returns>
         public List<M> GetSPData(object inputparameters, SPParamType paramType, object message)
         {
-            return  GetMockSPData().ToList();
+            return GetMockSPData().ToList();
         }
         /// <summary>
         /// Use this method to get data using dataset referring to stored procedure passed as parameter along with procedure parameters and out parameter list.

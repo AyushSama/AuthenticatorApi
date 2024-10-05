@@ -1,9 +1,9 @@
 ﻿using Authenticator.Application.BusinessInterfaces;
+using Authenticator.Application.PasswordHash;
 using Authenticator.Core.DBEntities;
 using Authenticator.Data.RepositryInterfaces;
-using DataHelper.HelperClasses;
 using ConfigReader.Entities;
-using Authenticator.Application.PasswordHash;
+using DataHelper.HelperClasses;
 
 namespace Authenticator.Application.BusinessServices
 {
@@ -16,15 +16,15 @@ namespace Authenticator.Application.BusinessServices
             _adminMasterUserRepo = adminMasterUserRepo;
         }
 
-        public AdminMasterUser authenticateUser(string username, string password, Message message) 
-        {   
+        public AdminMasterUser authenticateUser(string username, string password, Message message)
+        {
             password = HashPassword.ComputeHash(password);
             BaseSpecification<AdminMasterUser> spec = new()
             {
                 Criteria = a => a.UserName == username && a.Password == password,
             };
-            var res = _adminMasterUserRepo.GetUniqueRecordBySpec(spec,message);
-            if (res!=null && res.IsDeleted == false && res.IsActivator == true)
+            var res = _adminMasterUserRepo.GetUniqueRecordBySpec(spec, message);
+            if (res != null && res.IsDeleted == false && res.IsActivator == true)
                 return res;
             return null;
         }

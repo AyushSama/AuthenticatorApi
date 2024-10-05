@@ -1,6 +1,6 @@
 use ttadb;
 
-create table Activator_Menu_Master(
+create table ActivatorMenuMaster(
 	MenuId int primary key,
 	MenuName varchar(100) not null,
 	ParentId int not null,
@@ -8,7 +8,7 @@ create table Activator_Menu_Master(
 );
 
 
-insert into Activator_Menu_Master 
+insert into ActivatorMenuMaster 
 values	(1,'New Requests',0,''),
 		(2,'Premium Services',0,''),
 		(3,'Delete',0,''),

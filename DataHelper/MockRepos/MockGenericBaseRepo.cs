@@ -334,7 +334,7 @@ namespace DataHelper.MockRepos
                 var json = r.ReadToEnd();
                 if (!string.IsNullOrEmpty(json))
                 {
-                    items = System.Text.Json.JsonSerializer.Deserialize<List<T>>(json,options);
+                    items = System.Text.Json.JsonSerializer.Deserialize<List<T>>(json, options);
                 }
             }
 

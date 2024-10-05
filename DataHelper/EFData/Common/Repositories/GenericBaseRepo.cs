@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using DataHelper.EFData.Common.Interfaces;
+﻿using DataHelper.EFData.Common.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataHelper.EFData.Common.Repositories
 {

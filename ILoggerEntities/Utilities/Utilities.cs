@@ -18,15 +18,15 @@ namespace ConfigReader
             string layerName = caller.Module.Name;
             string paramValues = caller.GetParameters().ToString();
             int postlevel = LogLevel;
-            if(Messages.Count>0)
+            if (Messages.Count > 0)
                 Messages[Messages.Count - 1] += "$" + DateTime.Now.ToString();
-            Messages.Add(value + "$" + DateTime.Now.ToString() + "$" + layerName.Substring(0, layerName.LastIndexOf('.')) + "$" + className + "$" + methodName +"$" + paramValues + "$" + postlevel + "$" + lineNumbers) ;
+            Messages.Add(value + "$" + DateTime.Now.ToString() + "$" + layerName.Substring(0, layerName.LastIndexOf('.')) + "$" + className + "$" + methodName + "$" + paramValues + "$" + postlevel + "$" + lineNumbers);
             return Messages;
         }
 
         public static List<string> AddLog(this List<string> Messages, string value, string paramValues, int LogLevel = (int)LogLevel.Method)
         {
-            var frame =new  StackTrace().GetFrame(1);
+            var frame = new StackTrace().GetFrame(1);
             var caller = frame.GetMethod();
             int lineNumbers = frame.GetFileLineNumber();
             string methodName = caller.Name;

@@ -48,10 +48,12 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IAdminMasterUserRepo, AdminMasterUserRepo>();
 builder.Services.AddScoped<IAdminMasterUserService, AdminMasterUserService>();
+
+builder.Services.AddScoped<IActivatorMenuMasterRepo, ActivatorMenuMasterRepo>();
+builder.Services.AddScoped<IActivatorMenuMasterService, ActivatorMenuMasterService>();
+
 builder.Services.AddScoped<IUserAuthenticatorService, UserAuthenticatorService>();
 builder.Services.AddScoped<ILoginHistoryAuthenticatorService, LoginHistoryAuthenticatorService>();
-builder.Services.AddScoped<IButtonBasedOnUserRoleService, ButtonBasedOnUserRoleService>();
-builder.Services.AddScoped<IButtonTableService, ButtonTableService>();
 builder.Services.AddSingleton<FailedLoginAttemptsService>();
 
 builder.Services.AddScoped<HandleToken>();

@@ -1,6 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
-using DataHelper.Entities.EnumFields;
+﻿using DataHelper.Entities.EnumFields;
 using DataHelper.SPData.Common.Interfaces;
+using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace DataHelper.SPData.Common.Repositories
@@ -196,7 +196,7 @@ namespace DataHelper.SPData.Common.Repositories
             System.Text.StringBuilder sb = new();
             cmd.CommandTimeout = (int)TimeoutValues.Unlimited;
             cmd.CommandType = CommandType.Text;
-            
+
             Tempresult = cmd.ExecuteNonQuery();
             return Tempresult;
         }

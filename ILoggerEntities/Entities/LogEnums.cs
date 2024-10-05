@@ -142,9 +142,9 @@
         IVR = 122,
         LTAProfile = 123,
         LTADashboard = 124,
-        ConfigReader=125,
-        Communication =126,
-        Admin_DeleteDialogue =127,
+        ConfigReader = 125,
+        Communication = 126,
+        Admin_DeleteDialogue = 127,
         Admin_Feedback = 128,
         Admin_Delete_User = 129,
         Admin_Block_Customer = 130,
@@ -200,13 +200,13 @@
         betaprod = 7,
         ple = 8,
         production = 9,
-        
+
     }
     public enum LogLevel
     {
         Layer = 1,
         Class = 2,
         Method = 3,
-        Exception=4,
+        Exception = 4,
     }
 }

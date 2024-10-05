@@ -1,63 +1,39 @@
+use ttadb;
 
-drop table ButtonBasedOnUserRole;
-drop table ButtonTable;
-
-create table ButtonBasedOnUserRole(
-	userRole varchar(20),
-	navButton varchar(30),
-);
-INSERT INTO ButtonBasedOnUserRole (userRole, navButton)
-
-VALUES 
-
-    ('admin', 'New Requests'),
-
-    ('admin', 'Premium Services'),
-
-    ('admin', 'Delete'),
-
-    ('admin', 'Reports'),
-
-    ('admin', 'Manage Account Details'),
-
-    ('admin', 'Login Page Text');
- 
-
-
-create table ButtonTable(
-	menuType varchar(50),
-	isSetting int,
-	ButtonName varchar(60),
+create table Activator_Menu_Master(
+	MenuId int primary key,
+	MenuName varchar(100) not null,
+	ParentId int not null,
+	MenuApiUrl varchar(100),
 );
 
-insert into ButtonTable
-values	('Reports',0,'Account Summary'),
-		('Reports',0,'Login Details'),
-		('Reports',0,'Special Case Participants List'),
-		('Reports',0,'Distribution Details'),
-		('Reports',0,'Client List'),
-		('Reports',0,'Time Zone Details');
-		
-insert into ButtonTable
-values	('Manage Account Details',0,'Get Survey Details'),
-		('Manage Account Details',0,'Edit Splash Screen'),
-		('Manage Account Details',0,'Edit Release Banner Text'),
-		('Manage Account Details',0,'Unlock Account'),
-		('Manage Account Details',0,'Empty Recycle Bin'),
-		('Manage Account Details',0,'Publish Custom Report'),
-		('Manage Account Details',0,'Domain Level Opt-out'),
-		('Manage Account Details',0,'LDAP Accounts'),
-		('Manage Account Details',1,'LT Settings'),
-		('Manage Account Details',0,'Phishing Control');
 
-insert into ButtonTable
-values	('Manage Account Details',2,'LT Department + User Management'),
-		('Manage Account Details',2,'LT Intital Setup'),
-		('Manage Account Details',2,'Activity Directory Setup'),
-		('Manage Account Details',3,'Go To Engage');
+insert into Activator_Menu_Master 
+values	(1,'New Requests',0,''),
+		(2,'Premium Services',0,''),
+		(3,'Delete',0,''),
+		(4,'Reports',0,''),
+		(5,'Manage Account Details',0,''),
+		(6,'Login Page Text',0,''),
+		(7,'Account Summary',4,''),
+		(8,'Login Details',4,''),
+		(9,'Special case participants list',4,''),
+		(10,'Distribution Details',4,''),
+		(11,'Client List',4,''),
+		(12,'Time Zone Details',4,''),
+		(13,'Get Survey Details',5,''),
+		(14,'Edit Splash Screen',5,''),
+		(15,'Edit Release Banner Text',5,''),
+		(16,'Unlock Account',5,''),
+		(17,'Empty Recycle Bin',5,''),
+		(18,'Publish Custom Report',5,''),
+		(19,'Domain level Opt-out',5,''),
+		(20,'LDAP Accounts',5,''),
+		(21,'LT Settings',5,''),
+		(22,'Phishing Control',5,''),
+		(23,'LT Department + User Management',21,''),
+		(24,'LT Intital Setup',21,''),
+		(25,'Activity Directory Setup',21,''),
+		(26,'Go To Engage',21,'');
 
 
-select * from ButtonBasedOnUserRole;
-select * from ButtonTable
-
-select * from LoginHistoryAuthenticator

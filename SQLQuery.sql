@@ -1,5 +1,7 @@
 use ttadb;
 
+drop table ActivatorMenuMaster
+
 create table ActivatorMenuMaster(
 	MenuId int primary key,
 	MenuName varchar(100) not null,
@@ -7,33 +9,34 @@ create table ActivatorMenuMaster(
 	MenuApiUrl varchar(100),
 );
 
-
 insert into ActivatorMenuMaster 
-values	(1,'New Requests',0,''),
-		(2,'Premium Services',0,''),
-		(3,'Delete',0,''),
-		(4,'Reports',0,''),
-		(5,'Manage Account Details',0,''),
-		(6,'Login Page Text',0,''),
-		(7,'Account Summary',4,''),
-		(8,'Login Details',4,''),
-		(9,'Special case participants list',4,''),
-		(10,'Distribution Details',4,''),
-		(11,'Client List',4,''),
-		(12,'Time Zone Details',4,''),
-		(13,'Get Survey Details',5,''),
-		(14,'Edit Splash Screen',5,''),
-		(15,'Edit Release Banner Text',5,''),
-		(16,'Unlock Account',5,''),
-		(17,'Empty Recycle Bin',5,''),
-		(18,'Publish Custom Report',5,''),
-		(19,'Domain level Opt-out',5,''),
-		(20,'LDAP Accounts',5,''),
-		(21,'LT Settings',5,''),
-		(22,'Phishing Control',5,''),
-		(23,'LT Department + User Management',21,''),
-		(24,'LT Intital Setup',21,''),
-		(25,'Activity Directory Setup',21,''),
-		(26,'Go To Engage',21,'');
+values	(1,'New Requests',0,'NewRequests'),
+		(2,'Premium Services',0,'PremiumServices'),
+		(3,'Delete',0,'Delete'),
+		(4,'Reports',0,'Reports'),
+		(5,'Manage Account Details',0,'ManageAccountDetails'),
+		(6,'Login Page Text',0,'LoginPageText'),
+		(7,'Account Summary',4,'Reports/AccountSummary'),
+		(8,'Login Details',4,'Reports/LoginDetails'),
+		(9,'Special Case Participants List',4,'Reports/SpecialCaseParticipantsList'),
+		(10,'Distribution Details',4,'Reports/DistributionDetails'),
+		(11,'Client List',4,'Reports/ClientList'),
+		(12,'Time Zone Details',4,'Reports/TimeZoneDetails'),
+		(13,'Get Survey Details',5,'ManageAccountDetails/GetSurveyDetails'),
+		(14,'Edit Splash Screen',5,'ManageAccountDetails/EditSplashScreen'),
+		(15,'Edit Release Banner Text',5,'ManageAccountDetails/EditReleaseBannerText'),
+		(16,'Unlock Account',5,'ManageAccountDetails/UnlockAccount'),
+		(17,'Empty Recycle Bin',5,'ManageAccountDetails/EmptyRecycleBin'),
+		(18,'Publish Custom Report',5,'ManageAccountDetails/PublishCustomReport'),
+		(19,'Domain Level Opt-out',5,'ManageAccountDetails/DomainLevelOptout'),
+		(20,'LDAP Accounts',5,'ManageAccountDetails/LDAPAccounts'),
+		(21,'LT Settings',5,'ManageAccountDetails/LTSettings'),
+		(22,'Phishing Control',5,'ManageAccountDetails/PhishingControl'),
+		(23,'LT Department + User Management',21,'LTSettings/LTDepartmentUserManagement'),
+		(24,'LT Intital Setup',21,'LTSettings/LTIntitalSetup'),
+		(25,'Activity Directory Setup',21,'LTSettings/ActivityDirectorySetup'),
+		(26,'Go To Engage',21,'LTSettings/GoToEngage');
 
 
+
+select * from ActivatorMenuMaster

@@ -9,10 +9,13 @@ namespace Authenticator.Controllers
     public class LoginController : Controller
     {
 
-        public IAdminMasterUserService _adminMasterUserService;
-        public LoginController(IAdminMasterUserService adminMasterUserService)
+        private readonly IAdminMasterUserService _adminMasterUserService;
+        private readonly IActivatorMenuMasterService _activatorMenuMasterService;
+        
+        public LoginController(IAdminMasterUserService adminMasterUserService, IActivatorMenuMasterService activatorMenuMasterService)
         {
             _adminMasterUserService = adminMasterUserService;
+            _activatorMenuMasterService = activatorMenuMasterService;
         }
 
         [HttpGet("login")]
@@ -21,6 +24,14 @@ namespace Authenticator.Controllers
             Message message = new Message();
             AdminMasterUser check = _adminMasterUserService.authenticateUser(username, password, message);
             return check;
+        }
+
+        [HttpGet("getMenu")]
+        public ActionResult GetMenu(int parentId)
+        {
+            Message message = new Message();
+            var res = _activatorMenuMasterService.GetMenu(parentId,message);
+            return Ok(res);
         }
     }
 }

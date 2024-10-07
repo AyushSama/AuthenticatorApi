@@ -1,5 +1,8 @@
 ﻿using Authenticator.Application.BusinessInterfaces;
+using Authenticator.Core.DBEntities;
 using Authenticator.Data.RepositryInterfaces;
+using ConfigReader.Entities;
+using DataHelper.HelperClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +19,14 @@ namespace Authenticator.Application.BusinessServices
         {
             _activatorMenuMasterRepo = activatorMenuMasterRepo;
         }
-
+        public List<ActivatorMenuMaster> GetMenu(int parentId, Message message)
+        {
+            BaseSpecification<ActivatorMenuMaster> spec = new()
+            {
+                Criteria = a => a.ParentId == parentId
+            };
+            var res = _activatorMenuMasterRepo.List(spec, message);
+            return res;
+        }
     }
 }

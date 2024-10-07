@@ -43,7 +43,11 @@ namespace Authenticator.Controllers
         {
             Message message = new Message();
             var res = _activatorMenuMasterService.GetMenu(parentId,message);
-            return Ok(res);
+            if (res != null) 
+            {
+                return Ok(res);
+            }
+            return NotFound();
         }
     }
 }

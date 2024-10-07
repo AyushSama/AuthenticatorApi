@@ -1,5 +1,6 @@
 ﻿using Authenticator.Application.BusinessInterfaces;
 using Authenticator.Core.DBEntities;
+using Authenticator.CustomActionFilters;
 using ConfigReader.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,11 +20,22 @@ namespace Authenticator.Controllers
         }
 
         [HttpGet("login")]
-        public AdminMasterUser checkUser(string username, string password)
+        [ServiceFilter(typeof(Authenticate))] // Apply the custom Authenticate filter
+        public ActionResult<AdminMasterUser> CheckUser(string username, string password)
         {
-            Message message = new Message();
-            AdminMasterUser check = _adminMasterUserService.authenticateUser(username, password, message);
-            return check;
+            // Since the authentication logic is handled in the filter,
+            // you can just return the authenticated user here if needed.
+
+            // Assuming the user information is set in the HttpContext after successful authentication
+            var user = HttpContext.Items["AuthenticatedUser"] as AdminMasterUser;
+            var token = HttpContext.Items["token"];
+
+            if (user != null)
+            {
+                return Ok(new { token, user});
+            }
+
+            return Unauthorized();
         }
 
         [HttpGet("getMenu")]

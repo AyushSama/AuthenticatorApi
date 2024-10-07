@@ -2,6 +2,7 @@ using Authenticator.Application.BusinessInterfaces;
 using Authenticator.Application.BusinessServices;
 using Authenticator.Application.LoginAttemptService;
 using Authenticator.Core;
+using Authenticator.CustomActionFilters;
 using Authenticator.Data.Repositories;
 using Authenticator.Data.RepositryInterfaces;
 using Authenticator.TokenHandler;
@@ -57,6 +58,7 @@ builder.Services.AddScoped<ILoginHistoryAuthenticatorService, LoginHistoryAuthen
 builder.Services.AddSingleton<FailedLoginAttemptsService>();
 
 builder.Services.AddScoped<HandleToken>();
+builder.Services.AddScoped<Authenticate>();
 
 
 // Configure JWT authentication
